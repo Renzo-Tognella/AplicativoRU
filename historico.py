@@ -2,4 +2,5 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, Q
 from PySide6.QtGui import QPainter, QColor
 from PySide6.QtCore import Qt
 
-class NovaTela(QMainWindow):
+class HistoricocomprasApp:
+def __init__(self):

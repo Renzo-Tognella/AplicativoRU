@@ -1,8 +1,8 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QHBoxLayout, QSizePolicy
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QFrame, QLabel
 from PySide6.QtGui import QPainter, QColor
 from PySide6.QtCore import Qt
 
-class HistoricocomprasApp:
+class HistoricocomprasApp(QWidget):
 def __init__(self, cor_fundo=(248, 237, 237):
   super(HistoricoComprasApp, self).__init__()
 

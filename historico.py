@@ -3,7 +3,7 @@ from PySide6.QtGui import QPainter, QColor
 from PySide6.QtCore import Qt
 
 class HistoricocomprasApp(QWidget):
-def __init__(self, cor_fundo=(248, 237, 237):
+def __init__(self, cor_fundo=(248, 237, 237)):
   super(HistoricoComprasApp, self).__init__()
 
         self.setWindowTitle("Histórico de Compras de Tickets")

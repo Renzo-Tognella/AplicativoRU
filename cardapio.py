@@ -1,23 +1,9 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel
-from PySide6.QtGui import QColor, QPainterPath, QPainter
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QHBoxLayout, QSizePolicy
+from PySide6.QtGui import QColor
 from PySide6.QtCore import Qt
 
-class RoundedWidget(QWidget):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setMinimumSize(200, 200)  # Ajuste o tamanho conforme necessário
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.setRenderHint(QPainter.Antialiasing)
-
-        # Criar um caminho para o retângulo arredondado
-        path = QPainterPath()
-        path.addRoundedRect(self.rect(), 10, 10)
-        painter.fillPath(path, QColor(192, 192, 192))  # Cor cinza
-
 class NovaTela(QMainWindow):
-    def __init__(self):
+    def __init__(self, cor_amarelo=(255, 218, 185), cor_fundo=(200, 200, 200), cor_cinza=(169, 169, 169), proporcao_amarelo=1, proporcao_cinza=3):
         super().__init__()
 
         self.setWindowTitle("Nova Tela")
@@ -31,19 +17,50 @@ class NovaTela(QMainWindow):
 
         # Criar uma etiqueta para a parte amarela (20%)
         parte_amarela = QLabel()
-        parte_amarela.setStyleSheet("background-color: #FFD700;")  # Amarelo
-        layout.addWidget(parte_amarela, 1)  # 20% da altura
+        cor_amarela = QColor(*cor_amarelo)
+        parte_amarela.setStyleSheet(f"background-color: {cor_amarela.name()};")  # Amarelo
 
-        # Criar uma etiqueta para a parte branca (60%)
-        parte_branca = QLabel()
-        layout.addWidget(parte_branca, 3)  # 60% da altura
+        # Adicionar um layout horizontal para a parte amarela
+        layout_amarela = QHBoxLayout(parte_amarela)
 
-        # Adicionar um retângulo arredondado cinza na parte branca
-        retangulo_arredondado = RoundedWidget(parte_branca)
-        retangulo_arredondado.setStyleSheet("background-color: transparent;")
-        layout.addWidget(retangulo_arredondado, 1)  # 20% da altura
+        # Adicionar um QLabel para o texto "Almoço" dentro da parte amarela
+        label_amarelo_almoco = QLabel("Almoço")
+        label_amarelo_almoco.setAlignment(Qt.AlignCenter)
+        label_amarelo_almoco.setStyleSheet("color: black; font-size: 24px;")  # Cor e tamanho da fonte na parte amarela
 
-        # Configurar o layout principal do widget
+        # Adicionar um QLabel para o texto "Jantar" dentro da parte amarela
+        label_amarelo_jantar = QLabel("Jantar")
+        label_amarelo_jantar.setAlignment(Qt.AlignCenter)
+        label_amarelo_jantar.setStyleSheet("color: black; font-size: 24px;")  # Cor e tamanho da fonte na parte amarela
+
+        # Adicionar os labels na horizontal dentro do layout da parte amarela
+        layout_amarela.addWidget(label_amarelo_almoco)
+        layout_amarela.addWidget(label_amarelo_jantar)
+
+        # Adicionar a parte amarela ao layout principal
+        layout.addWidget(parte_amarela, proporcao_amarelo)  # 20% da altura
+
+        # Adicionar uma QLabel para a parte cinza (60%)
+        parte_cinza = QLabel()
+        cor_cinza = QColor(*cor_cinza)
+        layout.addWidget(parte_cinza, proporcao_cinza)  # 60% da altura
+        parte_cinza.setStyleSheet(f"background-color: {cor_cinza.name()};")
+
+        # Adicionar um layout horizontal para os quadrados cinzas
+        layout_quadrados_cinza = QHBoxLayout(parte_cinza)
+
+        # Adicionar 4 quadrados cinzas com texto
+        for texto in ["Almoço - semana DD/MM - DD/MM\n\nDia da semana DD/MM\n\nEste é um exemplo de refeição\nArroz\nArroz integral\nFeijão carioca\n salada\n Frango grelhado", "Janta - semana DD/MM - DD/MM\n\nDia da semana DD/MM\n\nEste é um exemplo de refeição\nArroz\nArroz integral\nFeijão carioca\n salada\n Alcatra grelhada"]:
+            quadrado_cinza = QLabel(texto)
+            quadrado_cinza.setAlignment(Qt.AlignCenter)
+            quadrado_cinza.setStyleSheet("background-color: rgb(200,200,200); font-size: 20px;")  # Ajuste o tamanho da fonte
+            quadrado_cinza.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+            layout_quadrados_cinza.addWidget(quadrado_cinza)
+
+        # Adicionar a parte cinza ao layout principal
+        layout.addWidget(parte_cinza, proporcao_cinza)
+
+        # Definir o layout principal do widget
         widget.setLayout(layout)
 
         # Definir o widget como o widget central da janela
@@ -52,7 +69,8 @@ class NovaTela(QMainWindow):
 if __name__ == "__main__":
     app = QApplication([])
 
-    nova_tela = NovaTela()
+    # Exemplo com tons diferentes de amarelo, fundo e cinza
+    nova_tela = NovaTela(cor_amarelo=(255, 249, 130), cor_fundo=(0, 0, 0), cor_cinza=(255, 255, 255))
     nova_tela.show()
 
     app.exec_()

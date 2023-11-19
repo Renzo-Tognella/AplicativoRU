@@ -10,7 +10,6 @@ from PIL import Image
 import io
 
 class ContaApp(QWidget):
-    
     def __init__(self, cor_fundo=(248, 237, 237)):
         super(ContaApp, self).__init__()
 

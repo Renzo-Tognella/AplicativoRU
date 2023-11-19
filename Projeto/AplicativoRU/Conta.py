@@ -18,6 +18,8 @@ class ContaApp(QWidget):
         # Criar um layout vertical
         layout = QVBoxLayout(self)
 
+        
+
         # Adicionar a imagem do brasão da república brasileira
         imagem_path = "AplicativoRU/brasaooficialcolorido.png"  # Substitua pelo caminho onde esta salva a imagem
         imagem_label = QLabel(self)

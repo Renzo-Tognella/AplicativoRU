@@ -24,7 +24,7 @@ class telaMenu(QMainWindow):
         self.buttonEngrenagem.setObjectName("engrenagem")  # Definir um nome para identificar o botão
         self.buttonEngrenagem.setFixedSize(square_size_amarela, square_size_amarela)
         self.buttonEngrenagem.move(x_amarela, y_amarela)
-        image_path_inside_square_amarela = "AplicativoRU/engrenagem.png"
+        image_path_inside_square_amarela = "Projeto/AplicativoRU/engrenagem.png"
         self.buttonEngrenagem.setIcon(QPixmap(image_path_inside_square_amarela))
         tamanho_icone_botao = QSize(41, 41)  # Substitua pelo tamanho desejado
         self.buttonEngrenagem.setIconSize(tamanho_icone_botao)      

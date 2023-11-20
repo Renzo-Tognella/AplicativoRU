@@ -82,6 +82,7 @@ class SaldoWidget(QWidget):
 
     def voltar_pagina_anterior(self):
         print("Voltando à página anterior")
+        
 
     def resizeEvent(self, event):
         # Redefinir os tamanhos proporcionais quando a janela for redimensionada

@@ -1,6 +1,9 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout
-from PySide6.QtGui import QFont
-from PySide6.QtCore import Qt
+
+import sys
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton
+from PySide6.QtGui import QFont, QPixmap
+from PySide6.QtCore import Qt, QSize
+
 
 class telaEscolhaPag(QMainWindow):
     def __init__(self):
@@ -12,6 +15,26 @@ class telaEscolhaPag(QMainWindow):
         # Criar um widget personalizado
         custom_widget = SaldoWidget(self)
         self.setCentralWidget(custom_widget)
+
+        # Adicionar o botão de voltar
+        x_voltar = 10
+        y_voltar = 10
+        square_size_voltar = 40
+
+        self.botao_voltar = QPushButton(self)
+        self.botao_voltar.setObjectName("voltar")
+        self.botao_voltar.setFixedSize(square_size_voltar, square_size_voltar)
+        self.botao_voltar.move(x_voltar, y_voltar)
+        image_path_inside_square_voltar = "Projeto/AplicativoRU/back.png"
+        self.botao_voltar.setIcon(QPixmap(image_path_inside_square_voltar))
+        tamanho_icone_voltar = QSize(70, 70)
+        self.botao_voltar.setIconSize(tamanho_icone_voltar)
+        self.botao_voltar.clicked.connect(self.voltar_pagina_anterior)
+
+    def voltar_pagina_anterior(self):
+        print("Voltando à página anterior")
+        
+        
 
 class SaldoWidget(QWidget):
     def __init__(self, parent):

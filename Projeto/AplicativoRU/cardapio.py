@@ -1,12 +1,12 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QHBoxLayout, QSizePolicy
-from PySide6.QtGui import QColor
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QHBoxLayout, QSizePolicy, QPushButton
+from PySide6.QtGui import QColor, QPixmap
+from PySide6.QtCore import Qt, QSize
 
 class cardapioTela(QMainWindow):
     def __init__(self, cor_amarelo=(255, 218, 185), cor_fundo=(200, 200, 200), cor_cinza=(169, 169, 169), proporcao_amarelo=1, proporcao_cinza=3):
         super().__init__()
 
-        self.setWindowTitle("Nova Tela")
+        self.setWindowTitle("Cardápio")
         self.setGeometry(200, 200, 600, 400)
 
         # Criar um widget para a nova tela
@@ -14,6 +14,24 @@ class cardapioTela(QMainWindow):
 
         # Configurar o layout como uma caixa vertical
         layout = QVBoxLayout(widget)
+
+        # Adicionar o botão de voltar no canto superior esquerdo
+        x_voltar = 10
+        y_voltar = 10
+        square_size_voltar = 40
+
+        self.botao_voltar = QPushButton(self)
+        self.botao_voltar.setObjectName("voltar")
+        self.botao_voltar.setFixedSize(square_size_voltar, square_size_voltar)
+        self.botao_voltar.move(x_voltar, y_voltar)
+        image_path_inside_square_voltar = "Projeto/AplicativoRU/back.png"
+        self.botao_voltar.setIcon(QPixmap(image_path_inside_square_voltar))
+        tamanho_icone_voltar = QSize(70, 70)
+        self.botao_voltar.setIconSize(tamanho_icone_voltar)
+        self.botao_voltar.clicked.connect(self.voltar_pagina_anterior)
+
+        # Adicionar o botão de voltar ao layout
+        layout.addWidget(self.botao_voltar, alignment=Qt.AlignTop | Qt.AlignLeft)
 
         # Criar uma etiqueta para a parte amarela (20%)
         parte_amarela = QLabel()
@@ -66,3 +84,11 @@ class cardapioTela(QMainWindow):
         # Definir o widget como o widget central da janela
         self.setCentralWidget(widget)
 
+    def voltar_pagina_anterior(self):
+        print("Voltando à página anterior")
+
+if __name__ == "__main__":
+    app = QApplication([])
+    window = cardapioTela()
+    window.show()
+    app.exec()

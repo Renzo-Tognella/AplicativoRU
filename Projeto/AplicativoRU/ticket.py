@@ -1,6 +1,6 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QFrame
-from PySide6.QtGui import QColor, QFont
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QPushButton, QFrame
+from PySide6.QtGui import QColor, QFont, QPixmap
+from PySide6.QtCore import Qt, QSize
 
 class VerticalLine(QFrame):
     def __init__(self, parent=None):
@@ -16,6 +16,21 @@ class FloatingSquares(QWidget):
 
         # Definir a cor dos quadrados como cinza claro
         cor_cinza_claro = QColor(200, 200, 200)
+
+        # Adicionar um botão de voltar no canto superior esquerdo
+        x_voltar = 10
+        y_voltar = 10
+        square_size_voltar = 40
+
+        self.botao_voltar = QPushButton(self)
+        self.botao_voltar.setObjectName("voltar")
+        self.botao_voltar.setFixedSize(square_size_voltar, square_size_voltar)
+        self.botao_voltar.move(x_voltar, y_voltar)
+        image_path_inside_square_voltar = "Projeto/AplicativoRU/back.png"
+        self.botao_voltar.setIcon(QPixmap(image_path_inside_square_voltar))
+        tamanho_icone_voltar = QSize(70, 70)
+        self.botao_voltar.setIconSize(tamanho_icone_voltar)
+        self.botao_voltar.clicked.connect(self.voltar_pagina_anterior)
 
         # Adicionar uma mensagem acima dos quadrados
         self.message_label = QLabel("Histórico de Tickets", self)
@@ -53,6 +68,7 @@ class FloatingSquares(QWidget):
 
         # Layout vertical para posicionar a mensagem, a linha e os quadrados
         layout = QVBoxLayout(self)
+        layout.addWidget(self.botao_voltar, 0, Qt.AlignTop | Qt.AlignLeft)
         layout.addWidget(self.message_label, 0, Qt.AlignCenter)
         layout.addSpacing(40)  # Aumentar o espaçamento entre a mensagem e as caixas
         layout.addWidget(linha_vertical, 0, Qt.AlignCenter)
@@ -67,6 +83,9 @@ class FloatingSquares(QWidget):
         tamanho_quadrado = 250  # Tamanho fixo dos quadrados
         self.square1.setFixedSize(tamanho_quadrado, tamanho_quadrado)
         self.square2.setFixedSize(tamanho_quadrado, tamanho_quadrado)
+
+    def voltar_pagina_anterior(self):
+        print("Voltando à página anterior")
 
 class MinhaTela(QMainWindow):
     def __init__(self):

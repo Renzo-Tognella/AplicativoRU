@@ -1,6 +1,5 @@
 from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget, QLabel, QLineEdit, QFrame, QGridLayout
-from PySide6.QtGui import QFont  # Importe a classe QFont do módulo QtGui
-
+from PySide6.QtGui import QFont 
 class telaDeLogin(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -26,23 +25,21 @@ class telaDeLogin(QMainWindow):
         self.button = QPushButton("Entrar")
         self.button.setFixedWidth(200)
         self.button.setStyleSheet('background-color: #D9B7F4; border-radius: 40px; padding: 10px;')
-        layout.addWidget(self.button)
-
+        layout.addWidget(self.button) 
+        
         self.hint = QLabel("Dica: Use a seu registro acadêmico e \na senha do Portal do Aluno")
         self.hint.setFixedWidth(200)
         self.hint.setMinimumHeight(50)
         layout.addWidget(self.hint)
 
-        # Criar uma fonte personalizada usando QFont do módulo QtGui
+       
         font = QFont()
         font2 = QFont()
-        font.setPointSize(9)  # Defina o tamanho da fonte
-        font.setFamily("italic")  # Defina a família da fonte
-        font.setBold(False)  # Defina como negrito
+        font.setPointSize(9) 
+        font.setFamily("italic")  
+        font.setBold(False)  
         font2.setBold(True)
 
-
-        # Aplicar a fonte aos widgets relevantes
         self.label_ra.setFont(font)
         self.text_ra.setFont(font)
         self.label_senha.setFont(font)
@@ -50,12 +47,11 @@ class telaDeLogin(QMainWindow):
         self.button.setFont(font2)
         self.hint.setFont(font)
 
-        # Criar um frame para o formulário
         frame = QFrame()
         frame.setLayout(layout)
         frame.setStyleSheet("background-color: #FFF059; border-radius: 20px;")
 
-        # Criar um layout para a janela
+
         window_layout = QGridLayout()
         window_layout.setRowStretch(0, 1)
         window_layout.setRowStretch(2, 1)
@@ -66,7 +62,6 @@ class telaDeLogin(QMainWindow):
         container.setLayout(window_layout)
         self.setCentralWidget(container)
 
-        # Definir a cor de fundo
         self.setStyleSheet("background-color: #F8EDED;")
 
 

@@ -9,7 +9,6 @@ class TelaInicial(QMainWindow):
         self.setWindowTitle("Divisão Diagonal de Cores")
         self.setGeometry(100, 100, 600, 400)
 
-        # Criar um widget personalizado
         custom_widget = DiagonalColorWidget(self)
         self.setCentralWidget(custom_widget)
 
@@ -18,12 +17,11 @@ class DiagonalColorWidget(QWidget):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
 
-        # Configurar cores
-        yellow = QColor(255, 249, 130)  # Amarelo
-        black = QColor(0, 0, 0)  # Preto
-        white = QColor(255, 255, 255)  # Branco
+        yellow = QColor(255, 249, 130)  
+        black = QColor(0, 0, 0)  
+        white = QColor(255, 255, 255)  
 
-        # Desenhar um triângulo superior amarelo
+
         painter.setBrush(yellow)
         polygon_yellow = [
             QPoint(0, 0),
@@ -32,7 +30,6 @@ class DiagonalColorWidget(QWidget):
         ]
         painter.drawPolygon(polygon_yellow)
 
-        # Desenhar um triângulo inferior preto
         painter.setBrush(black)
         polygon_black = [
             QPoint(0, 0),
@@ -41,7 +38,6 @@ class DiagonalColorWidget(QWidget):
         ]
         painter.drawPolygon(polygon_black)
 
-        # Desenhar um quadrado branco no meio (preenchendo a parte interna)
         square_size = 200
         painter.setBrush(white)
         painter.drawRect(
@@ -51,11 +47,9 @@ class DiagonalColorWidget(QWidget):
             square_size,
         )
 
-        # Carregar a imagem
         image_path = "simbolo ut.png"
         pixmap = QPixmap(image_path)
 
-        # Desenhar a imagem dentro do quadrado branco
         painter.drawPixmap(
             (self.width() - square_size) // 2,
             (self.height() - square_size) // 2,

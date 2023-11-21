@@ -1,69 +1,19 @@
 import sys
-from PySide6.QtWidgets import QApplication, QMainWindow, QWidget, QLabel, QVBoxLayout, QPushButton
-from PySide6.QtGui import QFont, QPixmap
 from PySide6.QtCore import Qt, QSize
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QHBoxLayout, QFormLayout
 
-class SaldoWindow(QMainWindow):
+class ProfileConfigWindow(QWidget):
     def __init__(self):
-        super().__init__()
+        super(ProfileConfigWindow, self).__init__()
 
-        self.setWindowTitle("Saldo")
-        self.setGeometry(100, 100, 600, 400)
+        self.init_ui()
 
-        # Criar um widget personalizado
-        custom_widget = SaldoWidget(self)
-        self.setCentralWidget(custom_widget)
+    def init_ui(self):
+        self.setWindowTitle('Configuração de Perfil')
+        self.setGeometry(100, 100, 400, 200)
 
-class SaldoWidget(QWidget):
-    def __init__(self, parent):
-        super().__init__(parent)
-
-        # Configurar o layout como uma caixa vertical
         layout = QVBoxLayout(self)
-        layout.setAlignment(Qt.AlignTop | Qt.AlignHCenter)
-        layout.setSpacing(20)  # Definir espaçamento entre os widgets
-
-        # Criar uma etiqueta para a mensagem "Saldo"
-        self.label_saldo = QLabel("Meu Saldo")
-        self.label_saldo.setAlignment(Qt.AlignCenter)
-        self.label_saldo.setStyleSheet("font-size: 40px; font-family: italic;")  # Definir tamanho e família da fonte
-
-        # Criar uma etiqueta para o valor (substitua '1000.00' pelo valor real)
-        self.label_valor = QLabel("R$ xxxxx")
-        self.label_valor.setAlignment(Qt.AlignCenter)
-        self.label_valor.setStyleSheet("font-size: 30px; font-family: italic;")  # Definir tamanho e família da fonte
-
-        # Adicionar as etiquetas ao layout
-        layout.addWidget(self.label_saldo)
-        layout.addWidget(self.label_valor)
-
-        # Adicionar um espaço vertical entre as etiquetas e os retângulos
-        layout.addSpacing(40)  # Aumentar o espaçamento
-
-        # Adicionar dois retângulos roxos arredondados e dimensionados como quadrados perfeitos
-        self.retangulo1 = QLabel("Pix")
-        self.retangulo1.setStyleSheet("background-color: #bb8fce; color: white; border-radius: 15px; font-size: 20px;")  # Ajuste o tamanho da fonte aqui
-        self.retangulo1.setAlignment(Qt.AlignCenter)
-
-        self.retangulo2 = QLabel("Cartão de Crédito / \nDébito ")
-        self.retangulo2.setStyleSheet("background-color: #bb8fce; color: white; border-radius: 15px; font-size: 20px;")
-        self.retangulo2.setAlignment(Qt.AlignCenter)
-
-        # Ajustar a largura dos retângulos
-        retangulo_width = max(350, int(self.height() / 6))
-        retangulo_height = max(150, int(self.height() / 6))
-        self.retangulo1.setMinimumSize(retangulo_width, retangulo_height)
-        self.retangulo2.setMinimumSize(retangulo_width, retangulo_height)
-
-        # Adicionar os retângulos ao layout
-        layout.addWidget(self.retangulo1)
-        layout.addWidget(self.retangulo2)
-
-        # Configurar o layout principal do widget
-        self.setLayout(layout)
-
-        # Chamar a função para ajustar tamanhos
-        self.updateSizes()
 
         # Adicionar o botão de voltar
         x_voltar = 10
@@ -80,39 +30,45 @@ class SaldoWidget(QWidget):
         self.botao_voltar.setIconSize(tamanho_icone_voltar)
         self.botao_voltar.clicked.connect(self.voltar_pagina_anterior)
 
+        button_layout = QHBoxLayout()
+
+        # Adicionando botões de atualização
+        update_name_button = QPushButton('Atualizar Nome', self)
+        update_name_button.clicked.connect(self.update_name)
+
+        update_email_button = QPushButton('Atualizar E-mail', self)
+        update_email_button.clicked.connect(self.update_email)
+
+        button_layout.addWidget(self.botao_voltar)  # Adicionar o botão de voltar
+        button_layout.addWidget(update_name_button)
+        button_layout.addWidget(update_email_button)
+
+        layout.addLayout(button_layout)
+
+        form_layout = QFormLayout()
+
+        self.name_edit = QLineEdit(self)
+        self.email_edit = QLineEdit(self)
+
+        form_layout.addRow('Nome:', self.name_edit)
+        form_layout.addRow('E-mail:', self.email_edit)
+
+        layout.addLayout(form_layout)
+
+    def update_name(self):
+        # Aqui você pode adicionar lógica para atualizar o nome
+        print("Nome atualizado!")
+
+    def update_email(self):
+        # Aqui você pode adicionar lógica para atualizar o e-mail
+        print("E-mail atualizado!")
+
     def voltar_pagina_anterior(self):
-        print("Voltando à página anterior")
-        
+        # Adicione a lógica para voltar à página anterior aqui
+        print("Voltar à página anterior")
 
-    def resizeEvent(self, event):
-        # Redefinir os tamanhos proporcionais quando a janela for redimensionada
-        self.updateSizes()
-
-    def updateSizes(self):
-        # Obter a altura atual da janela
-        height = self.height()
-
-        # Ajustar o tamanho da fonte proporcionalmente à altura da janela
-        font_size_saldo = max(14, int(height / 20))
-        font_size_valor = max(12, int(height / 25))
-        font_size_mensagem = max(12, int(height / 25))
-
-        # Atualizar os tamanhos das fontes
-        self.label_saldo.setFont(QFont("italic", font_size_saldo))
-        self.label_valor.setFont(QFont("italic", font_size_valor))
-
-        # Ajustar o tamanho dos retângulos proporcionalmente à altura da janela
-        retangulo_width = max(200, int(height / 6))
-        retangulo_height = max(60, int(height / 6))
-
-        # Atualizar os tamanhos dos retângulos
-        self.retangulo1.setMinimumSize(retangulo_width, retangulo_height)
-        self.retangulo2.setMinimumSize(retangulo_width, retangulo_height)
-
-if __name__ == "__main__":
-    app = QApplication([])
-
-    window = SaldoWindow()
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = ProfileConfigWindow()
     window.show()
-
-    app.exec_()
+    sys.exit(app.exec_())

@@ -48,6 +48,13 @@ class MainWindow(QMainWindow):
         self.tela_menu.buttonHistorico.clicked.connect(self.mostrar_tela_historico)
         self.tela_menu.buttonConta.clicked.connect(self.mostrar_tela_conta)
 
+        #self.tela_menu.botao_voltar.clicked.connect(self.mostrar_tela_inicial)
+        #self.tela_menu.botao_voltar.clicked.connect(self.mostrar_tela_menu)
+        #self.tela_menu.botao_voltar.clicked.connect(self.mostrar_tela_menu)
+        #self.tela_menu.botao_voltar.clicked.connect(self.mostrar_tela_menu)
+        
+    def mostrar_tela_inicial(self):
+        self.stacked_widget.setCurrentWidget(self.tela_inicial)
     def mostrar_tela_menu(self):
         self.stacked_widget.setCurrentWidget(self.tela_menu)
     def mostrar_tela_cardapio(self):
